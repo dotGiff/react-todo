@@ -1,10 +1,10 @@
 import {useState} from "react";
 
 export default function TodoInput(props) {
-  const {handleAddTodos,todoValue,setTodoValue} = props
+  const {handleAddTodos,todoValue,setTodoValue,inputRef} = props
   return (
     <header>
-      <input value={todoValue}
+      <input ref={inputRef}  value={todoValue}
              onKeyDown={(e) => {
                const value = todoValue.trim()
                if (!value) {

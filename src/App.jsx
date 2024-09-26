@@ -1,14 +1,11 @@
 import TodoInput from "./component/TodoInput";
 import TodoList from "./component/TodoList";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 
 function App() {
-  const [todos, setTodos] = useState([
-    "build an app",
-    "pass interview",
-    "pici up the kids"
-  ])
+  const [todos, setTodos] = useState([])
   const [todoValue, setTodoValue] = useState('')
+  const inputRef = useRef(null)
 
   function persistData(newList) {
     localStorage.setItem('todos', JSON.stringify({todos: newList}))
@@ -32,6 +29,7 @@ function App() {
     const valueToBeEdited = todos[index]
     setTodoValue(valueToBeEdited)
     handleDeleteTodo(index)
+    inputRef.current.focus()
   }
 
   useEffect(() => {
@@ -50,7 +48,7 @@ function App() {
 
   return (
     <>
-      <TodoInput todoValue={todoValue} setTodoValue={setTodoValue} handleAddTodos={handleAddTodos} />
+      <TodoInput todoValue={todoValue} setTodoValue={setTodoValue} handleAddTodos={handleAddTodos} inputRef={inputRef} />
       <TodoList handleDeleteTodo={handleDeleteTodo} handleEditTodo={handleEditTodo} todos={todos} />
     </>
   )
